@@ -8,3 +8,4 @@
 
 目前实现的API驱动：
 - [有道翻译](https://ai.youdao.com/gw.s)
+- [DEEPLX](https://deeplx.owo.network/)
