@@ -1,0 +1,2 @@
+# BetterQuestingTranslator
+BetterQuestingTranslator
