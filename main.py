@@ -13,7 +13,7 @@ driver_name = config.get('api', 'driver')
 api_delay = int(config.get('api', 'delay'))
 api_key = config.get('api', 'key')
 api_secret = config.get('api', 'secret')
-
+api_url = config.get('api', 'url')
 driver = importlib.import_module('api.' + driver_name)
 try:
     # 尝试打开和读取文件
@@ -34,11 +34,11 @@ for key in data["questDatabase:9"].keys():
     name = data["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["name:8"].strip()
     desc = data["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["desc:8"].strip()
     print("————————当前为第", count, "个任务————————")
-    result_1 = driver.translate(name, api_key, api_secret)
+    result_1 = driver.translate(name, api_key, api_secret,api_url)
     new_data["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["name:8"] = result_1
     print("标题:", name, "->", result_1)
     time.sleep(api_delay / 1000)
-    result_2 = driver.translate(desc, api_key, api_secret)
+    result_2 = driver.translate(desc, api_key, api_secret,api_url)
     print("描述:", desc, "->", result_2)
     new_data["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["desc:8"] = result_2
     time.sleep(api_delay / 1000)

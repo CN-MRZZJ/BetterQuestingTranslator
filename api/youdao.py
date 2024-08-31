@@ -4,7 +4,6 @@ import sys
 import uuid
 import requests
 import hashlib
-import time
 from importlib import reload
 
 import time
@@ -12,7 +11,6 @@ import time
 reload(sys)
 
 YOUDAO_URL = 'https://openapi.youdao.com/api'
-
 
 
 def encrypt(signStr):
@@ -33,7 +31,7 @@ def do_request(data):
     return requests.post(YOUDAO_URL, data=data, headers=headers)
 
 
-def translate(text="Hello",APP_KEY = '',APP_SECRET = ''):
+def translate(text="Hello", APP_KEY='', APP_SECRET='',*args):
     data = {'from': 'auto', 'to': 'zh-CHS', 'signType': 'v3'}
     current_time = str(int(time.time()))
     data['curtime'] = current_time
@@ -54,4 +52,4 @@ def translate(text="Hello",APP_KEY = '',APP_SECRET = ''):
     if str(ret['errorCode']) == '0':
         return ret['translation'][0]
     else:
-        return "API错误，错误代码"+ret['errorCode']
+        return "API错误，错误代码" + ret['errorCode']
