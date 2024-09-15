@@ -35,15 +35,25 @@ def translate(text):
     return str(driver.translate(text, config['api']['key'], config['api']['secret'],config['api']['url']))
 
 translated_quests = raw_quests
+errorlist_title = []
+errorlist_desc = []
 
 for index, key in enumerate(raw_quests["questDatabase:9"].keys()):
     print(f"————————当前为第{index+1}个任务————————")
     title = raw_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["name:8"].strip()
     desc = raw_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["desc:8"].strip()
-    translated_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["name:8"] = translate(title)
-    print(f"标题:{title}->{translated_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["name:8"]}")
-    translated_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["desc:8"] = translate(desc)
-    print(f"描述:{desc}->{translated_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["desc:8"]}")
+    try:
+        translated_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["name:8"] = translate(title)
+        print(f"标题:{title}->{translated_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["name:8"]}")
+    except Exception:
+        errorlist_title.append(key)
+        print(f"第{index+1}个任务,标题{key}错误,已加入错误列表")
+    try:
+        translated_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["desc:8"] = translate(desc)
+        print(f"描述:{desc}->{translated_quests["questDatabase:9"][key]["properties:10"]["betterquesting:10"]["desc:8"]}")
+    except Exception:
+        errorlist_desc.append(key)
+        print(f"第{index+1}个任务,描述{key}错误,已加入错误列表")
     print(f"————————第{index+1}个任务已完成————————")
 
 with open(config["file"]['output'], 'w', encoding='utf-8') as f:
