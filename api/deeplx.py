@@ -22,5 +22,3 @@ def translate(text,key,secret,url):
             raise Exception("API Error")
     except Exception:
         raise Exception("API Error")
-# if __name__ == "__main__":
-#     translate('Test','','','http://10.0.2.1:1188/translate')
