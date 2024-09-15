@@ -44,12 +44,12 @@ def translate(text="Hello", APP_KEY='', APP_SECRET='',*args):
     data['sign'] = sign
     data['domain'] = 'game'
     # data['vocabId'] = "9E24A4397FD345ADAD330DF0F803D1B9"
-
-    response = do_request(data)
-    # print(str(response.content))
-    ret = json.loads(str(response.content, encoding='utf-8'))
-    # print(str(ret))
-    if str(ret['errorCode']) == '0':
-        return ret['translation'][0]
-    else:
-        return "API错误，错误代码" + ret['errorCode']
+    try:
+        response = do_request(data)
+        ret = json.loads(str(response.content, encoding='utf-8'))
+        if str(ret['errorCode']) == '0':
+            return ret['translation'][0]
+        else:
+            raise Exception("API Error")
+    except Exception:
+        raise Exception("API Error")
